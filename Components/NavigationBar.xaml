@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MovieAppTest.Components.NavigationBar"
+             x:Name="this"
+             xmlns:local="clr-namespace:MovieAppTest.Components"
+             x:DataType="local:NavigationBar">
+    <StackLayout BindingContext="{x:Reference this}"
+                 x:Name="thisnavbar" Style="{StaticResource NavigationBar}">
+        <Label Text="&#xf060;" Style="{StaticResource NavigationBar_Icon}">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="nav_bar_tapped"/>
+            </Label.GestureRecognizers>
+        </Label>
+        <Label Text="{Binding Text, StringFormat='&#160;{0:N}'}" Style="{StaticResource NavigationBar_Label}"/>
+    </StackLayout>
+</ContentView>

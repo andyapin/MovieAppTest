@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MovieAppTest.Views.Main"
+             Title="Main"
+             xmlns:converter="clr-namespace:MovieAppTest.Converters"
+             xmlns:component="clr-namespace:MovieAppTest.Components">
+    <ContentPage.Resources>
+        <converter:VoteConverter x:Key="voteConverter" />
+    </ContentPage.Resources>
+    <Grid RowDefinitions="Auto,Auto,*" RowSpacing="10">
+        <VerticalStackLayout Grid.Row="0">
+            <Label Text="MovieAppTest" FontSize="24" FontFamily="SemiBold" Margin="0,0,0,20" />
+            <Label Text="Genres" FontFamily="SemiBold" FontSize="17" />
+            <CollectionView x:Name="GenreList" SelectionChanged="Genre_SelectionChanged" >
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Padding="15,1" Margin="5" HeightRequest="50" BackgroundColor="#3F51B5">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="15" />
+                            </Border.StrokeShape>
+                            <Label Text="{Binding name}" TextColor="White" FontFamily="SemiBold" FontSize="13" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroupList>
+                                    <VisualStateGroup Name="CommonStates">
+                                        <VisualState Name="Normal" />
+                                        <VisualState Name="Selected">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="transparent" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateGroupList>
+                            </VisualStateManager.VisualStateGroups>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="1">
+            <Label x:Name="txt_genre" FontFamily="SemiBold" FontSize="17" />
+            <Label x:Name="txt_result" FontFamily="Italic" FontSize="14" />
+        </VerticalStackLayout>
+        <CollectionView Grid.Row="2" x:Name="MoviesList"
+                        SelectionChanged="Movie_SelectionChanged" 
+                        RemainingItemsThresholdReached="Movie_RemainingItemsThresholdReached">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border Margin="5">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="20" />
+                        </Border.StrokeShape>
+                        <Grid ColumnDefinitions="30*,70*" RowDefinitions="Auto" HeightRequest="160">
+                            <Image Grid.ColumnSpan="2" Source="{Binding backdrop_path, StringFormat='https://image.tmdb.org/t/p/original{0}'}" Aspect="AspectFill" HeightRequest="160" Opacity="0.8"/>
+                            <Border Grid.Column="0" Margin="-10,0,0,0" Stroke="Transparent" WidthRequest="85" HeightRequest="85" BackgroundColor="White">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="15" />
+                                </Border.StrokeShape>
+                                <Border.Shadow>
+                                    <Shadow Brush="DarkGray" Offset="1,1" Radius="3" Opacity=".5" />
+                                </Border.Shadow>
+                                <Image x:Name="img" Source="{Binding poster_path, StringFormat='https://image.tmdb.org/t/p/original{0}'}" Aspect="AspectFill" WidthRequest="100" HeightRequest="100"/>
+                            </Border>
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                <Border Margin="5" Padding="10,3" BackgroundColor="White" Stroke="LightBlue" HorizontalOptions="Start" VerticalOptions="End">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="10" />
+                                    </Border.StrokeShape>
+                                    <Label Text="{Binding title}" FontFamily="SemiBold" MaxLines="1" />
+                                </Border>
+                                <Border Margin="5" Padding="10,3" BackgroundColor="White" Stroke="LightBlue" HorizontalOptions="Start" VerticalOptions="End">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="10" />
+                                    </Border.StrokeShape>
+                                    <Label Text="{Binding overview}" FontFamily="Medium" MaxLines="2" />
+                                </Border>
+                                <Border Margin="5" Padding="10,3" BackgroundColor="White" Stroke="LightBlue" HorizontalOptions="Start" VerticalOptions="End">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="10" />
+                                    </Border.StrokeShape>
+                                    <HorizontalStackLayout Margin="0,5,0,0" Spacing="7" VerticalOptions="Start">
+                                        <Label Text="&#xf005;" FontFamily="Icon" TextColor="Red" VerticalTextAlignment="Center" />
+                                        <Label Text="{Binding vote_average, Converter={StaticResource voteConverter}}" VerticalTextAlignment="Start" />
+                                    </HorizontalStackLayout>
+                                </Border>
+                            </VerticalStackLayout>
+                        </Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroupList>
+                                <VisualStateGroup Name="CommonStates">
+                                    <VisualState Name="Normal" />
+                                    <VisualState Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="transparent" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateGroupList>
+                        </VisualStateManager.VisualStateGroups>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <ActivityIndicator Grid.Row="2" x:Name="activity_indicator" HorizontalOptions="Center" VerticalOptions="Center" />
+    </Grid>
+</ContentPage>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MovieAppTest.Views.Details"
+             xmlns:component="clr-namespace:MovieAppTest.Components"
+             xmlns:converter="clr-namespace:MovieAppTest.Converters"
+             Title="Details">
+    <ContentPage.Resources>
+        <converter:AvatarConverter x:Key="avatarConverter" />
+    </ContentPage.Resources>
+    <ScrollView VerticalScrollBarVisibility="Never">
+        <VerticalStackLayout Spacing="20">
+            <component:NavigationBar Text="Details" />
+            <Border HeightRequest="200">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="15" />
+                </Border.StrokeShape>
+                <Image x:Name="img" Aspect="AspectFill"/>
+            </Border>
+
+            <ScrollView Orientation="Horizontal">
+                <HorizontalStackLayout Spacing="10">
+                    <Border BackgroundColor="#7E57C2" Padding="20,5">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="15" />
+                        </Border.StrokeShape>
+                        <HorizontalStackLayout Margin="0,5,0,0" Spacing="7" VerticalOptions="Start">
+                            <Label Text="&#xf005;" FontFamily="Icon" TextColor="LightSalmon" VerticalTextAlignment="Center" />
+                            <Label x:Name="txt_vote_average" TextColor="White" FontFamily="SemiBold" />
+                        </HorizontalStackLayout>
+                    </Border>
+                    <Border BackgroundColor="#3F51B5" Padding="20,5">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="15" />
+                        </Border.StrokeShape>
+                        <Label x:Name="txt_adult" TextColor="White" FontFamily="SemiBold" VerticalTextAlignment="Center" />
+                    </Border>
+                    <Border BackgroundColor="#26A69A" Padding="20,5">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="15" />
+                        </Border.StrokeShape>
+                        <Label x:Name="txt_status" TextColor="White" FontFamily="SemiBold" VerticalTextAlignment="Center" />
+                    </Border>
+                </HorizontalStackLayout>
+            </ScrollView>
+
+            <VerticalStackLayout>
+                <Label Text="Title" FontFamily="SemiBold" />
+                <Label x:Name="txt_title" FontFamily="SemiBold" FontSize="17" />
+            </VerticalStackLayout>
+            <VerticalStackLayout>
+                <Label Text="Overview" FontFamily="SemiBold" />
+                <Label x:Name="txt_overview" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout>
+                <Label Text="Release Date" FontFamily="SemiBold" />
+                <Label x:Name="txt_release_date" />
+            </VerticalStackLayout>
+            <VerticalStackLayout>
+                <Label Text="Vote Count" FontFamily="SemiBold" />
+                <Label x:Name="txt_vote_count" />
+            </VerticalStackLayout>
+            <VerticalStackLayout>
+                <Label Text="Genre" FontFamily="SemiBold" />
+                <CollectionView x:Name="GenreList" SelectionMode="None">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Padding="15,1" Margin="5" HeightRequest="40" BackgroundColor="#26A69A">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="15" />
+                                </Border.StrokeShape>
+                                <Label Text="{Binding name}" TextColor="White" FontFamily="SemiBold" FontSize="13" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+            <Button Text="Go To Homepage" Clicked="Button_Clicked" FontFamily="SemiBold" CornerRadius="20" HeightRequest="70" Margin="0,20" />
+
+            <VerticalStackLayout>
+                <Label Text="User Reviews" FontFamily="SemiBold" />
+                <Grid HeightRequest="700">
+                    <CollectionView x:Name="ReviewsList" SelectionChanged="Reviews_SelectionChanged" RemainingItemsThresholdReached="Reviews_RemainingItemsThresholdReached">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid ColumnDefinitions="30*,70*" RowDefinitions="Auto,Auto" Margin="0,10" RowSpacing="10">
+                                    <Border Grid.Column="0" VerticalOptions="Start" Margin="-10,0,0,0" Stroke="Transparent" WidthRequest="85" HeightRequest="85" BackgroundColor="White">
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="15" />
+                                        </Border.StrokeShape>
+                                        <Border.Shadow>
+                                            <Shadow Brush="DimGray" Offset="1,1" Radius="3" Opacity=".5" />
+                                        </Border.Shadow>
+                                        <Image Source="{Binding author_details.avatar_path, Converter={StaticResource avatarConverter}}" Aspect="AspectFill" WidthRequest="100" HeightRequest="100"/>
+                                    </Border>
+                                    <VerticalStackLayout Grid.Column="1">
+                                        <Label Text="{Binding created_at}" FontFamily="Italic" TextColor="LightCoral" />
+                                        <Label Text="{Binding author}" FontFamily="SemiBold" FontSize="16" />
+                                    </VerticalStackLayout>
+                                    <Label Grid.ColumnSpan="2" Grid.Row="1" Text="{Binding content}" />
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                    <ActivityIndicator x:Name="activity_indicator" HorizontalOptions="Center" VerticalOptions="Center" />
+                </Grid>
+            </VerticalStackLayout>
+            
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

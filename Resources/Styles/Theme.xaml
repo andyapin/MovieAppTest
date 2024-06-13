@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MovieAppTest.Resources.Styles.Theme">
+
+    <Style TargetType="NavigationPage" ApplyToDerivedTypes="True">
+        <Setter Property="Title" Value="" />
+        <Setter Property="BackgroundColor" Value="White" />
+    </Style>
+    <Style ApplyToDerivedTypes="True" TargetType="ContentPage">
+        <Setter Property="BackgroundColor" Value="White" />
+        <Setter Property="NavigationPage.HasNavigationBar" Value="false"/>
+        <Setter Property="Title" Value="" />
+        <Setter Property="Padding" Value="20" />
+    </Style>
+    
+    <Style TargetType="StackLayout" x:Key="NavigationBar">
+        <Setter Property="Orientation" Value="Horizontal" />
+        <Setter Property="Margin" Value="0,10,10,10" />
+    </Style>
+    <Style TargetType="Label" x:Key="NavigationBar_Icon">
+        <Setter Property="TextColor" Value="#212121" />
+        <Setter Property="FontSize" Value="22" />
+        <Setter Property="FontFamily" Value="Icon" />
+        <Setter Property="VerticalTextAlignment" Value="Center" />
+        <Setter Property="Margin" Value="5,0" />
+        <Setter Property="Text" Value="&#xf060;" />
+    </Style>
+    <Style TargetType="Label" x:Key="NavigationBar_Label">
+        <Setter Property="TextColor" Value="#212121" />
+        <Setter Property="VerticalTextAlignment" Value="Center" />
+        <Setter Property="Margin" Value="0,0,0,-5" />
+        <Setter Property="FontFamily" Value="SemiBold" />
+        <Setter Property="FontSize">
+            <OnIdiom Phone="20" Default="25" />
+        </Setter>
+    </Style>
+
+    <Style TargetType="Label">
+        <Setter Property="FontFamily" Value="Regular" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="TextColor" Value="#424242" />
+    </Style>
+
+    <Style TargetType="CollectionView">
+        <Setter Property="BackgroundColor" Value="White" />
+        <Setter Property="SelectionMode" Value="Single"/>
+        <Setter Property="ItemSizingStrategy" Value="MeasureAllItems"/>
+        <Setter Property="ItemsUpdatingScrollMode" Value="KeepScrollOffset"/>
+        <Setter Property="RemainingItemsThreshold" Value="20"/>
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup Name="CommonStates">
+                    <VisualState Name="Normal" />
+                    <VisualState Name="Selected">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="transparent" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>
